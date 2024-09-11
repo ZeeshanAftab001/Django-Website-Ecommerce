@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+
+{% load static %}
+{% block body %}
+<!-- Hero section -->
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'assets/coverpage.webp' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+  </div>
+<!-- Hero section end -->
+
+
+<!-- Intro section -->
+<section class="intro-section spad pb-0">
+    <div class="section-title">
+        <h2>pemium products</h2>
+        <p>We recommend</p>
+    </div>
+    <div class="intro-slider text-sm-center">
+        <ul class="slidee">
+            {% for product in products  %}
+            
+            <li>
+                <div class="intro-item">
+                    <figure>
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Product Image" />
+                    </figure>
+      
+                    <div class="product-info">
+                        <h5>{{product.name}}</h5>
+                        <p>${{product.price}}</p>
+                        <div class="pi-meta">
+                            <div class="pi-m-left" style="background: #414141;">
+                                <a href="{% url 'product' product.id %}">
+                                <img src="{% static 'img/icons/eye.png' %}" alt="">
+                                <p>quick view</p>
+                                </a>
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+            </li>
+         
+            {% endfor %}
+</section>
+<!-- Intro section end -->
+<style>
+    .img {
+        border: none;
+    }
+</style>
+
+<!-- Featured section -->
+<div class="featured-section spad">
+    <div class="container img">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="featured-item mb-0">
+                    <img src="{% static 'assets/DOG.webp' %}" alt="" style="border: none;">
+                    <a href="{% url 'categories' 'Dogs' %}" class="site-btn">see more</a>      
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="featured-item mb-0">
+                    <img src="{% static 'assets/CAT.webp' %}" alt="" style="border: none;">
+                    <a href="{% url 'categories' 'Cats' %}" class="site-btn">see more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product section -->
+<section class="product-section spad">
+    <div class="container">
+        <ul class="product-filter controls">
+            <li class="control" data-filter=".new">New arrivals</li>
+            <li class="control" data-filter="all">Recommended</li>
+            <li class="control" data-filter=".best">Best sellers</li>
+        </ul>
+        <div class="row" id="product-filter">
+            {% for product in products  %}
+            <div class="mix col-lg-3 col-md-6 best">
+                <div class="product-item">
+                    <figure>
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Product Image" />
+                        {% if product.stock == 0 %}
+                        <div class="bache">Out of Stock</div>
+                        {% endif %}
+                        <div class="pi-meta">
+                            <div class="pi-m-left">
+                                <a href="{% url 'product' product.id %}">
+                                <img src="{% static 'img/icons/eye.png' %}" alt="">
+                                <p>quick view</p>
+                                </a>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="product-info">
+                        <h6>{{product.name}}</h6>
+                        <p>${{product.price}}</p>
+                        <br>
+                        <br>
+                        <button class="site-btn btn-line" id="add-cart" type="button" data-product-id="{{product.id}}">ADD TO CART</button> 
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+</section>
+{% endblock body %}

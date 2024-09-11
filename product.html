@@ -1,0 +1,95 @@
+{% extends 'index.html' %}
+	<!-- Page Info -->
+{% load static %}
+{% block body %}
+	<div class="container" style="color:black;">
+		<div class="row" style="color: black;">
+
+		</div>
+	</div>
+	<div class="page-area product-page spad py-10" style="background: #ffd301;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<figure style="border-radius: 3; border-color: black;">
+						<img class="product-big-img" src="{{product.image.url}}" alt="">
+					</figure>
+				</div>
+				<div class="col-lg-6" >
+					<div class="product-content">
+						<h2>{{product.name}}</h2>
+						<div class="pc-meta">
+							<h4 class="price">${{product.price}}</h4>
+						</div>
+						<p>{{product.description}}</p>
+						</div>
+						<div class="row justify">
+                            <div class="col-md-2">Quantity:</div>
+                            <div class="col-md-2">
+                              <select class="form-select form-select-sm" id="cart-quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+                          </div>
+						<button type='button' data-product-id={{product.id}} class="site-btn btn-line" id="add-cart">ADD TO CART</button>
+						<a href="#" class="site-btn btn-line">Order Now</a>
+					</div>
+				</div>
+			</div>
+			<div class="text-center rp-title py-5" style="background: white;">
+				<h5>Related products</h5>
+			</div>
+
+
+			
+			<div class="row">
+			{% for p in other_products %}
+				<div class="col-lg-3" style="background: white;">
+					<div class="product-item">
+						<figure>
+							<img src="{{p.image.url}}" alt="">
+							<div class="pi-meta">
+								<a href="{% url 'product' p.id %}">
+									<div class="pi-m-left">
+										<img src="{% static 'img/icons/eye.png' %}" alt="">
+										<p>quick view</p>
+									</div>
+								</a>
+							</div>
+						</figure>
+						<div class="product-info">
+							<h6>{{p.name}}</h6>
+							<p>${{p.price}}</p>
+							<button type='button' data-product-id={{p.id}} class="site-btn btn-line" id="add-cart">ADD TO CART</button>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+	<!-- Page end -->
+	<script>
+        $(document).on("click", ".add-cart", function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'add_cart' %}",
+                data: {
+                    product_id: $('.add-cart').val(),  // Use colon instead of equals
+                    csrfmiddlewaretoken: '{{ csrf_token }}',  // Wrap the CSRF token in quotes
+                    action: 'post'
+                },
+                success: function(json) {
+                    console.log(json);
+                },
+                error: function(xhr, errmg, err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+	{% endblock body %}

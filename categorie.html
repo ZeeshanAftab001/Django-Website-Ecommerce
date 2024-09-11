@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block body %}
+<body style="background: #ffd301;">
+	<div class="page-area categorie-page spad">
+		<div class="container py-3" style="background: white;>
+			<h2>{{category}}</h2>
+		</div>
+		<div class="container py-3">
+			<div class="row">
+			{% for p in products %}
+				<div class="col-lg-3">
+					<div class="product-item">
+						<figure>
+							<img src="{{p.image.url}}" alt="">
+							<div class="pi-meta">
+								<a href="{% url 'product' p.id %}">
+									<div class="pi-m-left">
+										<img src="{% static 'img/icons/eye.png' %}" alt="">
+										<p>quick view</p>
+									</div>
+								</a>
+							</div>
+						</figure>
+						<div class="product-info">
+							<h6>{{p.name}}</h6>
+							<p>${{p.price}}</p>
+							<a href="#" class="site-btn btn-line">ADD TO CART</a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+		</div>
+	</div>
+	<!-- Page -->
+	{% endblock body %}

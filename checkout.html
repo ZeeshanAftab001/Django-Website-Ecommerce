@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% block body %}
+					<div class="col-lg-6">
+						<div class="order-card">
+							<div class="order-details">
+								<div class="od-warp">
+									<h4 class="checkout-title">Your order</h4>
+									<table class="order-table">
+										<thead>
+											<tr>
+												<th>Product</th>
+												<th>Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Cocktail Yellow dress</td>
+												<td>$59.90</td>
+											</tr>
+											<tr>
+												<td>SubTotal</td>
+												<td>$59.90</td>
+											</tr>
+											<tr class="cart-subtotal">
+												<td>Shipping</td>
+												<td>Free</td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr class="order-total">
+												<th>Total</th>
+												<th>$59.90</th>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+							<button class="site-btn btn-full">Place Order</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- Page -->
+	{% endblock body %}
